@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from mobile.views import index
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    # ''表示前端页面直接输入域名或IP+端口会跳到此处，index.index表示在mobile/views/index.py文件下的index函数处理此处的逻辑
+    # name='mobile_index'：在前端代码中通过name值也能找到此处路由
+    path('',index.index, name="mobile_index")
 ]
