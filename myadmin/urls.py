@@ -16,13 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from myadmin.views import index
+from myadmin.views import index, user
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
 
     # ''表示前端页面输入"xxx/myadmin/"会跳到此处，index.index表示在myadmin/views/index.py文件下的index函数处理此处的逻辑
     # name='myadmin_index'：在前端代码中通过name值也能找到此处路由
-    path('', index.index, name='myadmin_index')
+    path('', index.index, name='myadmin_index'),
+    
+    
+    # 员工账号信息管理
+    # 'user'表示前端页面输入"xxx/myadmin/user"回跳到此处，user.index表示在myadmin/views/user.py文件下的index函数处理此处的逻辑
+    # name="myadmin_user_index"：在前端代码中通过name值也能找到此处路由
+    path('user', user.index, name="myadmin_user_index"),  # 浏览信息
 
 ]
