@@ -8,9 +8,9 @@ from myadmin.views.models import User
 
 
 def index(request):
-    '''
+    """
     获取User数据表的信息，filter()是一个"过滤器"，把可迭代的变量中的值，挨个地传给函数进行处理。filter()可以传入参数。匹配于参数相关的数据
-    '''
+    """
     userlist = User.objects.filter()
 
     # 将获取到的User信息放到字典中

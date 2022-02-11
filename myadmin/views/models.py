@@ -26,4 +26,4 @@ class User(models.Model):
 
 # 如过不指定表名，Django默认创建的数据库表为"myapp_user",Meta类将表名指定为'user'
     class Meta:
-        db_table = 'user'  # 更改表名
+        db_table = 'user'  #更改表名
