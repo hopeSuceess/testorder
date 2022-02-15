@@ -30,5 +30,7 @@ urlpatterns = [
     # 'user'表示前端页面输入"xxx/myadmin/user"回跳到此处，user.index表示在myadmin/views/user.py文件下的index函数处理此处的逻辑
     # name="myadmin_user_index"：在前端代码中通过name值也能找到此处路由
     path('user/<int:pIndex>', user.index, name="myadmin_user_index"),  # 浏览信息,<int:pIndex>表示pIndex是int类型的参数
+    path('user/add', user.add, name="myadmin_user_add"),  # 加载添加表单
+    path('user/insert', user.insert, name="myadmin_user_insert"), # 执行表单添加
 
 ]

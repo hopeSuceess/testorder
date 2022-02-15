@@ -83,8 +83,9 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer clearfix">
-                  <a role="button" href="" class="btn btn-primary btn-xs">
-                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加会员</a>
+                {#点击"添加员工"会触发 name= 'myadmin_user_add'，其对应的是user/add路径，跳转到user.insert处理逻辑#}
+                  <a role="button" href="{% url 'myadmin_user_add' %}" class="btn btn-primary btn-xs">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加员工</a>
                   <ul class="pagination pagination-sm no-margin pull-right">
                       <li><a href="{% url 'myadmin_user_index' pIndex|add:-1 %}?{{ mywhere|join:'&' }}">&laquo;</a></li>
                       {% for p in plist %}
