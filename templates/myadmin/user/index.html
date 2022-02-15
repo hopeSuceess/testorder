@@ -70,9 +70,9 @@
                                   <td width="15%">{{ vo.create_at|date:'Y-m-d H:i:s' }}</td>
                                   <td width="15%">{{ vo.update_at|date:'Y-m-d H:i:s' }}</td>
                                   <td width="22%">
-                                      <a href="" class="btn btn-success btn-xs">
+                                      <a href="{% url 'myadmin_user_edit' vo.id %}" class="btn btn-success btn-xs">
                                           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>编辑</a>
-                                      <button type="button" onclick="" class="btn btn-danger btn-xs">
+                                      <button type="button" onclick="doDel('{% url 'myadmin_user_delete' vo.id %}')" class="btn btn-danger btn-xs">
                                           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除</button>
                                       <a type="button" class="btn btn-warning btn-xs">
                                           <span class="glyphicon glyphicon-search" aria-hidden="true"></span>分配店铺</a>

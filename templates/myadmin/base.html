@@ -283,6 +283,24 @@
 <!-- 此处可以添加SimLoopl和FastClick插件，用于增强用户体验。 -->
 
 <script type="text/javascript">
+  //自定义一个用于实现Ajax信息删除的函数
+  function doDel(url){
+    Modal.confirm({
+      msg: "确定要删除吗？",
+      title: ' 信息提示',
+      btnok: '确定',
+      btncl:'取消'
+    }).on(function (e){
+      if(e){ //判断是否点击了确定按钮
+          window.location.href=url;
+
+      }
+    });
+  }
+</script>
+
+
+<script type="text/javascript">
 	/*
     Modal.confirm({
         msg: "确定要删除吗？",
