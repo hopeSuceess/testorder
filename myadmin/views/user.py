@@ -2,6 +2,9 @@
 # @Time : 2022/2/8 17:41
 # @Author : 中国
 # @File : user.py
+import random
+from datetime import datetime
+
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
@@ -49,3 +52,42 @@ def index(request,pIndex=1):
     '''
     return  render(request,'myadmin/user/index.html',context)
 
+def add(request):
+    ''' 加载添加页面 '''
+    return render(request, 'myadmin/user/add.html')
+
+
+def insert(request):
+    try:
+        # 引用User()数据库对象
+        umod = User()
+        # 获取页面填写的账号
+        umod.username = request.POST["username"]
+        # 获取页面填写的昵称
+        umod.nickname = request.POST["nickname"]
+        # md5加密
+        import hashlib
+        md5 = hashlib.md5()
+        # 引入随机数
+        n = random.randint(100000,999999)
+        # 获取页面填写的密码并加上随机数
+        s = request.POST['password']+str(n)
+        # 对填写的密码进行md5加密，对s进行编码：编码为utf-8的字节格式
+        md5.update(s.encode('utf-8'))
+        # md5加密后，作为十六进制数据字符串值返回摘要
+        umod.password_hash = md5.hexdigest()
+        # 密码干扰值等于随机数
+        umod.password_salt = n
+        #状态默认等于1，表示会员状态正常
+        umod.status = 1
+        #创造时间
+        umod.create_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        #更新时间
+        umod.update_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        umod.save()
+        context = {'info':'添加成功！'}
+        return render(request, 'myadmin/info.html', context)
+    except Exception as err:
+        context = {'info':'添加失败！'}
+        print(err)
+        return render(request, 'myadmin/info.html', context)
