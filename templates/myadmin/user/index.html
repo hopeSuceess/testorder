@@ -86,7 +86,6 @@
                   <a role="button" href="" class="btn btn-primary btn-xs">
                       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加会员</a>
                   <ul class="pagination pagination-sm no-margin pull-right">
-                      {#若查询的数据分页，访问链接添加上后端传过来的mywhere#}
                       <li><a href="{% url 'myadmin_user_index' pIndex|add:-1 %}?{{ mywhere|join:'&' }}">&laquo;</a></li>
                       {% for p in plist %}
                           <li {% if p == pIndex %}class="active"{% endif %}><a href="{% url 'myadmin_user_index' p %}?{{ mywhere|join:'&' }}">{{ p }}</a></li>
