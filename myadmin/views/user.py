@@ -91,3 +91,42 @@ def insert(request):
         context = {'info':'添加失败！'}
         print(err)
         return render(request, 'myadmin/info.html', context)
+
+def edit(request, uid):
+    '''加载编辑信息页面'''
+    try:
+        ob = User.objects.get(id=uid)
+        context={"user":ob}
+        return render(request, "myadmin/user/edit.html", context)
+    except Exception as err:
+        context={"info":"没有找到要修改的信息!"}
+        return render(request, 'myadmin/user/edit.html')
+
+def update(request, uid):
+    """ 执行编辑信息 """
+    try:
+        ob = User.objects.get(id=uid)  #获取前端页面传过来的需要修改的员工信息id,并与数据库匹配，获取该员工的全部信息
+        ob.nickname = request.POST['nickname']   #获取前端页面修改的数据信息
+        ob.status = request.POST['status'] #获取前端页面修改的数据信息
+        ob.update_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")   #实时更新"更新时间"
+        ob.save() #保存修改信息
+        context = {"info":"修改成功!"}
+        return render(request, "myadmin/info.html",context)
+    except Exception as err:
+        print(err)
+        context = {"info":"修改失败"}
+        return render(request, "myadmin/info.html",context)
+
+
+def delete(request, uid):
+    ''' 执行员工信息删除 '''
+    try:
+        ob = User.objects.get(id=uid)
+        ob.status = 9
+        ob.save()
+        context = {"info":"修改成功!"}
+        return render(request, "myadmin/info.html", context)
+    except Exception as err:
+        print(err)
+        context = {"info": "修改失败"}
+        return render(request, "myadmin/info.html", context)

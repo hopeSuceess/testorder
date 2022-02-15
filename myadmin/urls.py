@@ -32,5 +32,8 @@ urlpatterns = [
     path('user/<int:pIndex>', user.index, name="myadmin_user_index"),  # 浏览信息,<int:pIndex>表示pIndex是int类型的参数
     path('user/add', user.add, name="myadmin_user_add"),  # 加载添加表单
     path('user/insert', user.insert, name="myadmin_user_insert"), # 执行表单添加
+    path('user/edit/<int:uid>', user.edit, name="myadmin_user_edit"), # 加载编辑页面
+    path('user/update/<int:uid>', user.update, name="myadmin_user_update"),  # 执行编辑页面
+    path('user/delete/<int:uid>',user.delete, name='myadmin_user_delete'), # 员工信息删除
 
 ]
