@@ -20,7 +20,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
 
     path('myadmin/', include('myadmin.urls')), # 路由后缀是myadmin/  继续去myadmin.urls下寻找匹配的路由
-    path('web/',include('web.urls')), # 跳转到web.urls下寻找匹配的路由
-    path('',include('mobile.urls')), # 访问路径只有域名/IP+端口 跳转到mobile.urls下寻找匹配的路由
+    path('',include('web.urls')), # 跳转到web.urls下寻找匹配的路由
+    path('mobile/',include('mobile.urls')), # 访问路径只有域名/IP+端口 跳转到mobile.urls下寻找匹配的路由
 
 ]

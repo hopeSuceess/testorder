@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'myadmin.shopmiddleware.ShopMiddleware',  #注册中间件
 ]
 
 ROOT_URLCONF = 'testorder.urls'

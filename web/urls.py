@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from web.views import index
 
@@ -22,5 +22,17 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # ''表示前端页面输入"xxx/web/"会跳到此处，index.index表示在web/views/index.py文件下的index函数处理此处的逻辑
     # name='web_index'：在前端代码中通过name值也能找到此处路由
-    path('',index.index, name="web_index")
+    path('',index.index, name="index"),  # 前台大堂点餐首页
+
+    # 前端登录退出的路由
+    path('login', index.login, name = "web_login"), # 加载登陆表单
+    path('dologin', index.dologin, name = "web_dologin"), # 执行登录
+    path('verify', index.verify, name="web_verify"), #输出验证码
+
+
+
+    # 为url路由添加请求前缀web/，凡是带此前缀的url地址必须登录后才能访问
+    path("web/", include([
+        path('', index.webIndex, name="web_index"),   #前台大堂点餐首页
+    ]))
 ]

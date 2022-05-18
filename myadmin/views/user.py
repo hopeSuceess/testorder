@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 
-from myadmin.views.models import User
+from myadmin.models import User
 
 
 def index(request,pIndex=1):
@@ -32,7 +32,7 @@ def index(request,pIndex=1):
 
     # 执行分页处理
     pIndex = int(pIndex)
-    page = Paginator(list,5) # 以5条每页创建分页对象
+    page = Paginator(list,1) # 以5条每页创建分页对象
     maxpages = page.num_pages # 最大页数
     # 判断页数是否越界
     if pIndex > maxpages:
