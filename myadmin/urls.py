@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from myadmin.views import index, user, shop, category
+from myadmin.views import index, user, shop, category, product, member
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -24,23 +24,22 @@ urlpatterns = [
     # ''表示前端页面输入"xxx/myadmin/"会跳到此处，index.index表示在myadmin/views/index.py文件下的index函数处理此处的逻辑
     # name='myadmin_index'：在前端代码中通过name值也能找到此处路由
     path('', index.index, name='myadmin_index'),
-    
-    
+
     #  员工账号信息管理
     # 'user'表示前端页面输入"xxx/myadmin/user"回跳到此处，user.index表示在myadmin/views/user.py文件下的index函数处理此处的逻辑
     # name="myadmin_user_index"：在前端代码中通过name值也能找到此处路由
     path('user/<int:pIndex>', user.index, name="myadmin_user_index"),  # 浏览信息,<int:pIndex>表示pIndex是int类型的参数
     path('user/add', user.add, name="myadmin_user_add"),  # 加载添加表单
-    path('user/insert', user.insert, name="myadmin_user_insert"), # 执行表单添加
-    path('user/edit/<int:uid>', user.edit, name="myadmin_user_edit"), # 加载编辑页面
+    path('user/insert', user.insert, name="myadmin_user_insert"),  # 执行表单添加
+    path('user/edit/<int:uid>', user.edit, name="myadmin_user_edit"),  # 加载编辑页面
     path('user/update/<int:uid>', user.update, name="myadmin_user_update"),  # 执行编辑页面
-    path('user/delete/<int:uid>',user.delete, name='myadmin_user_delete'), # 员工信息删除
+    path('user/delete/<int:uid>', user.delete, name='myadmin_user_delete'),  # 员工信息删除
 
     # 后台管理员路由
-    path('login',index.login, name="myadmin_login"),
-    path('dologin',index.dologin, name="myadmin_dologin"),
+    path('login', index.login, name="myadmin_login"),
+    path('dologin', index.dologin, name="myadmin_dologin"),
     path('logout', index.logout, name="myadmin_logout"),
-    path('verify', index.verify, name="myadmin_verify"), #验证码
+    path('verify', index.verify, name="myadmin_verify"),  # 验证码
 
     # 店铺路由
     path('shop/<int:pIndex>', shop.index, name="myadmin_shop_index"),
@@ -50,55 +49,26 @@ urlpatterns = [
     path('shop/edit/<int:sid>', shop.edit, name="myadmin_shop_edit"),
     path('shop/update/<int:sid>', shop.update, name="myadmin_shop_update"),
 
-
     # 菜品分类信息管理
-    path('category/<int:pIndex>', category.index, name="myadmin_category_index"),
-    path('category/load/<int:sid>', category.loadCategoy, name="myadmin_category_load"),
-    path('category/add', category.add, name="myadmin_category_add"), # 添加表单
-    path('category/insert',category.insert, name="myadmin_category_insert"), # 执行添加
-    path('category/edit/<int:sid>', category.edit, name="myadmin_category_edit"), # 修改表单
-    path('category/update/<int:sid>', category.update, name="myadmin_category_update"), # 执行修改
-    path('category/delete/<int:sid>',category.delete, name="myadmin_category_delete"), # 删除
+    path('category/<int:pIndex>', category.index, name="myadmin_category_index"),  # 列表浏览页
+    path('category/load/<int:sid>', category.loadCategory, name="myadmin_category_load"),
+    path('category/add', category.add, name="myadmin_category_add"),  # 添加表单
+    path('category/insert', category.insert, name="myadmin_category_insert"),  # 执行添加
+    path('category/edit/<int:sid>', category.edit, name="myadmin_category_edit"),  # 修改表单
+    path('category/update/<int:sid>', category.update, name="myadmin_category_update"),  # 执行修改
+    path('category/delete/<int:sid>', category.delete, name="myadmin_category_delete"),  # 删除
 
+    # 菜品信息管理
+    path('product/<int:pIndex>', product.index, name="myadmin_product_index"),  # 列表浏览页
+    path('product/category/<int:sid>', product.categoryProduct, name="myadmin_categoryProduct_index"), #菜品分类-查看菜品浏览页
+    path('product/add', product.add, name="myadmin_product_add"),  # 添加表单
+    path('product/insert', product.insert, name="myadmin_product_insert"),  # 执行添加
+    path('product/edit/<int:sid>', product.edit, name="myadmin_product_edit"), # 修改表单
+    path('product/update/<int:sid>', product.update, name="myadmin_product_update"), # 执行修改
+    path('product/delete/<int:sid>', product.delete, name="myadmin_product_delete"), #删除
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # 会员信息管理
+    path('member/<int:pIndex>', member.index, name="myadmin_member_index"), # 列表浏览页
+    path('member/delete/<int:sid>', member.delete, name="myadmin_member_delete"), #删除
 
 ]

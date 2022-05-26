@@ -23,8 +23,10 @@
               <h3 class="box-title"><i class="fa fa-calendar"></i> 菜品分类信息表</h3>
 
               <div class="box-tools">
+              {#点击查询页面跳转的地址是myadmin_category_index，对应的还是myadmin/views/index中的index函数#}
                 <form action="{% url 'myadmin_category_index' 1 %}" method="get">
                 <div class="input-group input-group-sm" style="width: 150px;">
+              {#name="keyword"将输入的值传送到后端index函数进行逻辑判断#}
                   <input type="text" name="keyword" class="form-control pull-right" placeholder="Search">
                   <div class="input-group-btn">
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -68,7 +70,7 @@
                       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑</a>
                     <button type="button" onclick="doDel('{% url "myadmin_category_delete" vo.id %}')" class="btn btn-danger btn-xs">
                       <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-                    <a href="{% url "myadmin_category_load" vo.id %}" class="btn btn-warning btn-xs">
+                    <a href="{% url 'myadmin_categoryProduct_index' vo.id %}" class="btn btn-warning btn-xs">
                       <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查看菜品</a>
                   </td>
                 </tr>

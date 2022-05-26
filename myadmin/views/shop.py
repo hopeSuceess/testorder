@@ -79,8 +79,6 @@ def insert(request):
             destination.write(chunk)
         destination.close()
 
-
-
         # 实例化model，封装信息，并执行添加
         ob = Shop()
         ob.name = request.POST['name']

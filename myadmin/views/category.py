@@ -6,12 +6,11 @@
 
 # 菜品分类信息
 from datetime import datetime
-
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from myadmin.models import Category, Shop
+from myadmin.models import Category, Shop, Product
 
 
 def index(request,pIndex=1):
@@ -53,9 +52,11 @@ def index(request,pIndex=1):
     return render(request, "myadmin/category/index.html", context=context)
 
 
-def loadCategoy(request,sid):
+def loadCategory(request,sid):
     clist = Category.objects.filter(status__lt=9,shop_id=sid).values("id","name")
     # 返回QuerySet对象，使用list强转成对应的菜品分类列表信息
+    print(clist)
+    print(list(clist))
     return JsonResponse({'data': list(clist)})
 
 
@@ -68,19 +69,15 @@ def add(request):
 
 def insert(request):
     ''' 执行表单添加 '''
-
-
     try:
         cod = Category()
         cod.shop_id = request.POST['shop_id']
-
         categoryName = request.POST.get('name', None)
         if categoryName:
             cod.name = categoryName
         else:
             context = {"info": "菜品分类不能为空"}
             return render(request, "myadmin/info.html", context)
-
         cod.status = 1
         cod.create_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cod.update_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

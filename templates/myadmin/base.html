@@ -213,11 +213,11 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{% url "myadmin_category_index" 1 %}"> <i class="fa fa-circle-o"></i> 菜品分类</a></li>
-            <li><a href=""> <i class="fa fa-circle-o"></i> 菜品信息</a></li>
+            <li><a href="{% url "myadmin_product_index" 1  %}"> <i class="fa fa-circle-o"></i> 菜品信息</a></li>
           </ul>
         </li>
         <li><a href="orders.html"><i class="fa fa-shopping-cart"></i> <span>订单管理</span></a></li>
-        <li><a href="#"><i class="fa fa-user"></i> <span>账号管理</span></a></li>
+        <li><a href="{% url 'myadmin_member_index' 1  %}"><i class="fa fa-user"></i> <span>账号管理</span></a></li>
         <li><a href="#"><i class="fa fa-key"></i> <span>权限管理</span></a></li>
         <li><a href="#"><i class="fa fa-gear"></i> <span>系统配置</span></a></li>
         <li><a href="#"><i class="fa fa-unlock-alt"></i> <span>认证体系</span></a></li>
