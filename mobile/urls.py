@@ -22,5 +22,9 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # ''表示前端页面直接输入域名或IP+端口会跳到此处，index.index表示在mobile/views/index.py文件下的index函数处理此处的逻辑
     # name='mobile_index'：在前端代码中通过name值也能找到此处路由
-    path('',index.index, name="mobile_index")
+    path('',index.index, name="mobile_index"), #移动端首页
+
+    #店铺选择
+    path('shop',index.shop, name="mobile_shop"), # 移动端店铺选择页
+    path('shop/select',index.selectShop, name="mobile_select_shop"), # 执行移动端店铺选择
 ]
