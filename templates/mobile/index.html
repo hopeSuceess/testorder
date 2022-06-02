@@ -5,7 +5,7 @@
     <!--头部-->
     <header class="search" id="search">
         <div class="header">
-            <h1>田老师红烧肉-朝阳将台路店</h1>
+            <h1>{{ request.session.shopinfo.name }}-{{ request.session.shopinfo.shop }}</h1>
         </div>
         <!--通知公告/客服电话-->
     </header>
@@ -21,84 +21,28 @@
         <!--左侧栏目-->
         <div class="sortNav" id="sortNav">
             <p class="icon-sort line">分类导航</p>
-            <a href="javascript:void(0);" onclick="doselectList(this,1)">双拼套餐</a>
-            <a href="javascript:void(0);" onclick="doselectList(this,2)" class="select">盖饭</a>
-            <a href="javascript:void(0);" onclick="doselectList(this,3)">小菜</a>
-            <a href="javascript:void(0);" onclick="doselectList(this,4)">汤/饮料</a>
+            {%  for vo in categorylist  %}
+            <a href="javascript:void(0);" onclick="doselectList(this,{{ vo.id }})" {% if cid.id == vo.id %}class="select"{% endif %} >{{ vo.name }}</a>
+            {% endfor %}
         </div>
 
         <!--右侧产品-->
         <div class="sortContent line">
             <!--产品列表-->
-            <ol class="list-content" id="list-content1" style="display:none;">
+            {% for key,plist in productlist %}
+            <ol class="list-content" id="list-content{{ key }}" style="display:none;">
+                {% for vo in plist %}
                 <li class="line">
                     <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img25.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>法国猪肋排 1kg/袋</h3><font>瘦肉多，绝对超值精排 </font><b>¥35.00</b><p>乐果派旗舰店</p></div>
+                        <div class="pro-img"><img src="{% static 'uploads/product/' %}{{ vo.cover_pic }}" alt=""></div>
+                        <div class="pro-con"><h3>{{ vo.name }}</h3><font>绝对超值，店长推荐</font><b>{{ vo.price }}</b></div>
                     </a>
-                    <a href="javascript:doCartAdd(1)" class="list-cart"><i class="icon-cartadd"></i></a>
+{#                    <a href="javascript:doCartAdd({{ vo.id }})" class="list-cart"><i class="icon-cartadd"></i></a>#}
                 </li>
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img05.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>乌拉圭进口牛肋条</h3><font>BTV推荐，全网独家热销</font><b>¥59.00</b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="javascript:doCartAdd(2)" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img12.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>智利肋排脆骨 1kg/袋</h3><b>¥56.60</b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="#" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img28.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>温氏 农养鸡 袋装 （800g）</h3><b>¥38.80</b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="#" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
+                    {% endfor %}
             </ol>
-            <ol class="list-content" id="list-content2" style="display:none;">
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img29.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>江西萍乡土鸡蛋</h3><font>林地散养，原粮喂养，蛋黄大，蛋清粘稠</font><b>¥12.80</b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="#" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img30.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>台湾皮蛋，松花蛋</h3><font></font><b>¥28.00<s>¥31.90</s></b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="#" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
-            </ol>
-            <ol class="list-content" id="list-content3" style="display:none;">
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img07.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>萍乡土鸡蛋</h3><font></font><b>¥28.00<s>¥31.90</s></b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="#" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img16.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>新鲜猪肉</h3><font></font><b>¥28.00<s>¥31.90</s></b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="#" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
-                <li class="line">
-                    <a href="#">
-                        <div class="pro-img"><img src="{% static '/mobile/img/img27.jpg' %}" alt=""></div>
-                        <div class="pro-con"><h3>鸡肉</h3><font></font><b>¥28.00<s>¥31.90</s></b><p>乐果派旗舰店</p></div>
-                    </a>
-                    <a href="#" class="list-cart"><i class="icon-cartadd"></i></a>
-                </li>
-            </ol>
+            {% endfor %}
+
             <br><br>
         </div>
 
@@ -136,7 +80,7 @@
 
     <!--底部栏目-->
     <menu>
-        <a href=""><i class="icon-selectmore"></i>切换店铺</a>
+        <a href="{% url 'mobile_shop' %}"><i class="icon-selectmore"></i>切换店铺</a>
         <!--a href="member-order.html"><i class="icon-allorders"></i>订单</a-->
         <a href="javascript:void(0)" id="orderCart"><i class="icon-cart"><span>0</span></i>购物车</a>
         <a href=""><i class="icon-head"></i>我的</a>
@@ -158,45 +102,47 @@
         return false;
     }
 
-    cartlist = [];
+    {#cartlist = [];#}
 
-    function doCartAdd(id){
-        shoplist = [{'id':1,'name':'法国猪肋排','cover_pic':'img/img25.jpg','price':35.00,'num':1},{'id':2,'name':'乌拉圭进口牛肋条','cover_pic':'img/img05.jpg','price':90.00,'num':1}];
-        shop = shoplist[id-1];
-        var b=true;
-        for(var i=0;i<cartlist.length;i++){
-            if(cartlist[i].id==id){
-                b = false;
-                cartlist[i].num += 1;
-                break;
-            }
-        }
-        if(b){
-            cartlist.push(shop);
-        }
-        doShowCart();
 
-    }
 
-    function doCartClear(){
-        cartlist = [];
-        doShowCart();
-    }
 
-    function doShowCart(){
-        var cartContent = $("#cartContent div.cartContentList ul.line-li");
-        cartContent.empty()
-        var total = 0.0;
-        for(var i=0;i<cartlist.length;i++){
-            var str = "<li>";
-            str += '<img src="'+cartlist[i].cover_pic+'" alt=""><p>'+cartlist[i].name+'</p><span>¥'+cartlist[i].price+'</span>';
-            str += '<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" readonly class="line" value="'+cartlist[i].num+'"><button><i class="icon-plus"></i></button></div>'
-            str += "</li>";
-            cartContent.append(str);
-            total += cartlist[i].price * cartlist[i].num;
-        }
-        $("#cartContent div.LayerFooter span").html("￥"+total);
-        $("#orderCart i.icon-cart span").html(cartlist.length);
-    }
+
+
+    {#//执行购物车添加操作#}
+    {#function doCartAdd(id){#}
+    {#    $.ajax({#}
+    {#        url:"{% url '' %}?pid="+id,#}
+    {#        type: 'get',#}
+    {#        data: {},#}
+    {#        dataType: 'json',#}
+    {#        success:function (res) {#}
+    {#            console.log(res.cartlist);#}
+    {#            doShowCart(res.cartlist);#}
+    {#        }#}
+    {#    });#}
+    {#}#}
+
+    {#function doCartClear(){#}
+    {#    cartlist = [];#}
+    {#    doShowCart();#}
+    {#}#}
+
+    //重新绘制购物车内容
+    {#function doShowCart(){#}
+    {#    var cartContent = $("#cartContent div.cartContentList ul.line-li");#}
+    {#    cartContent.empty()#}
+    {#    var total = 0.0;#}
+    {#    for(var i=0;i<cartlist.length;i++){#}
+    {#        var str = "<li>";#}
+    {#        str += '<img src="'+cartlist[i].cover_pic+'" alt=""><p>'+cartlist[i].name+'</p><span>¥'+cartlist[i].price+'</span>';#}
+    {#        str += '<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" readonly class="line" value="'+cartlist[i].num+'"><button><i class="icon-plus"></i></button></div>'#}
+    {#        str += "</li>";#}
+    {#        cartContent.append(str);#}
+    {#        total += cartlist[i].price * cartlist[i].num;#}
+    {#    }#}
+    {#    $("#cartContent div.LayerFooter span").html("￥"+total);#}
+    {#    $("#orderCart i.icon-cart span").html(cartlist.length);#}
+    {#}#}
 </script>
 {% endblock %}
