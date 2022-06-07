@@ -27,4 +27,32 @@ urlpatterns = [
     #店铺选择
     path('shop',index.shop, name="mobile_shop"), # 移动端店铺选择页
     path('shop/select',index.selectShop, name="mobile_select_shop"), # 执行移动端店铺选择
+
+    # 会员注册/登录
+    path('register', index.register, name = "mobile_register"), #移动端会员注册/登录表单页
+    path('doregister', index.doRegister, name= "mobile_doregister"), # 执行注册或登录
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ]
