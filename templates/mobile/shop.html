@@ -6,7 +6,7 @@
     <header>
         <div class="header">
             <h1>切换店铺</h1>
-            <a href="{% url 'mobile_index' %}" class="return"></a>
+            <a href="" class="return"></a>
         </div>
     </header>
 
@@ -18,7 +18,7 @@
             <ul>
                 {% for vo in shoplist %}
                     <li class="line select">
-                        <a href="{% url 'mobile_select_shop' %}?sid={{ vo.id }}">
+                        <a href="{% url 'mobile_select_shop'%}?sid={{ vo.id }}">
                         <div class="pro-img"><img src="/static/uploads/shop/{{ vo.cover_pic }}" alt=""></div>
                         <div class="pro-con"><h3>{{ vo.name }}</h3><p>电话：{{ vo.phone }}</p><p>{{ vo.address }}</p></div>
                         </a>

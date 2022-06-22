@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from mobile.views import index
+from mobile.views import index, cart
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -32,27 +32,10 @@ urlpatterns = [
     path('register', index.register, name = "mobile_register"), #移动端会员注册/登录表单页
     path('doregister', index.doRegister, name= "mobile_doregister"), # 执行注册或登录
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # 购物车信息管理路由配置
+    path('cart/add', cart.add, name="mobile_cart_add"), # 购物车添加
+    path('cart/clear', cart.clear, name="mobile_cart_clear"), # 购物车清空
+    # path('cart/del', cart.delete, name="mobile_cart_del"),
+    # path('cart/change', cart.change, name="mobile_cart_change"),  # 购物车更改
 
 ]

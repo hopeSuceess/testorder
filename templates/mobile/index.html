@@ -30,14 +30,14 @@
         <div class="sortContent line">
             <!--产品列表-->
             {% for key,plist in productlist %}
-            <ol class="list-content" id="list-content{{ key }}" style="display:none;">
+            <ol class="list-content" id="list-content{{ key }}" style="display:{% if cid.id == key %}block{% else %}none{% endif %};">
                 {% for vo in plist %}
                 <li class="line">
                     <a href="#">
-                        <div class="pro-img"><img src="{% static 'uploads/product/' %}{{ vo.cover_pic }}" alt=""></div>
-                        <div class="pro-con"><h3>{{ vo.name }}</h3><font>绝对超值，店长推荐</font><b>{{ vo.price }}</b></div>
+                        <div class="pro-img"><img src="{% static 'uploads/product/'%}{{ vo.cover_pic }}" alt=""></div>
+                        <div class="pro-con"><h3>{{ vo.name }}</h3><font>绝对超值，店长推荐</font><b>￥{{ vo.price }}</b></div>
                     </a>
-{#                    <a href="javascript:doCartAdd({{ vo.id }})" class="list-cart"><i class="icon-cartadd"></i></a>#}
+                    <a href="javascript:doCartAdd({{ vo.id }})" class="list-cart"><i class="icon-cartadd"></i></a>
                 </li>
                     {% endfor %}
             </ol>
@@ -102,47 +102,98 @@
         return false;
     }
 
-    {#cartlist = [];#}
+    cartlist = [];
 
 
 
 
 
 
-    {#//执行购物车添加操作#}
-    {#function doCartAdd(id){#}
-    {#    $.ajax({#}
-    {#        url:"{% url '' %}?pid="+id,#}
-    {#        type: 'get',#}
-    {#        data: {},#}
-    {#        dataType: 'json',#}
-    {#        success:function (res) {#}
-    {#            console.log(res.cartlist);#}
-    {#            doShowCart(res.cartlist);#}
-    {#        }#}
-    {#    });#}
-    {#}#}
+    //执行购物车添加操作
+    function doCartAdd(id){
+        $.ajax({
+            url: "{% url 'mobile_cart_add' %}?pid="+id,
+            type: 'get',
+            data: {},
+            dataType: 'json',
+            success:function (res){
+                console.log(res.cartlist);
+                doShowCart(res.cartlist);
 
-    {#function doCartClear(){#}
-    {#    cartlist = [];#}
-    {#    doShowCart();#}
-    {#}#}
+            }
+        });
+    }
+
+
+    // 执行购物车清空操作
+    function doCartClear() {
+        $.ajax({
+           url: "{% url 'mobile_cart_clear' %}",
+           type: 'get',
+           data: {},
+           dataType: 'json',
+           success:function (res) {
+               console.log(res.cartlist);
+               doShowCart(res.cartlist);
+           }
+        });
+    }
+
+
+    /***
+    function doCartDel(id){
+        $.ajax({
+            {#url: "{% url 'mobile_cart_del' %}?pid="+id,#}
+            type: 'get',
+            data: {},
+            dataType: 'json',
+            success:function (res){
+                console.log(res.cartlist);
+                doShowCart(res.cartlist);
+
+            }
+        });
+    }
+    ***/
+
 
     //重新绘制购物车内容
-    {#function doShowCart(){#}
-    {#    var cartContent = $("#cartContent div.cartContentList ul.line-li");#}
-    {#    cartContent.empty()#}
-    {#    var total = 0.0;#}
-    {#    for(var i=0;i<cartlist.length;i++){#}
-    {#        var str = "<li>";#}
-    {#        str += '<img src="'+cartlist[i].cover_pic+'" alt=""><p>'+cartlist[i].name+'</p><span>¥'+cartlist[i].price+'</span>';#}
-    {#        str += '<div class="D-BuyNum"><button><i class="icon-reduce"></i></button><input type="number" readonly class="line" value="'+cartlist[i].num+'"><button><i class="icon-plus"></i></button></div>'#}
-    {#        str += "</li>";#}
-    {#        cartContent.append(str);#}
-    {#        total += cartlist[i].price * cartlist[i].num;#}
-    {#    }#}
-    {#    $("#cartContent div.LayerFooter span").html("￥"+total);#}
-    {#    $("#orderCart i.icon-cart span").html(cartlist.length);#}
-    {#}#}
+        function doShowCart(cartlist){
+		var cartContent = $("#cartContent div.cartContentList ul.line-li");
+		cartContent.empty()
+		var total = 0.0;
+		for(let i in cartlist){
+			var str = "<li>";
+			str += '<img src="/static/uploads/product/'+cartlist[i].cover_pic+'" alt=""><p>'+cartlist[i].name+'</p><span>¥'+cartlist[i].price+'</span>';
+            str += '<div class="D-BuyNum">' +
+                '<button>' +
+                '<i class="icon-reduce"></i></button>' +
+                '<input type="number" readonly class="line" value="'+cartlist[i].num+'"><button><i class="icon-plus"></i>' +
+                '</button>' +
+                '</div>';
+            str += "</li>";
+			cartContent.append(str);
+			total += cartlist[i].price * cartlist[i].num;
+		}
+		$("#cartContent div.LayerFooter span").html("￥"+total);
+		$("#orderCart i.icon-cart span").html(Object.keys(cartlist).length);
+	}
+
+    // 当前页面首次加载时获取购物车信息并显示
+
+
+    $.ajax({
+        url: "{% url 'mobile_cart_add' %}",
+        type: 'get',
+        data: {},
+        dataType: 'json',
+        success:function (res){
+            console.log(res.cartlist);
+            doShowCart(res.cartlist);
+        }
+    });
+
+
+
 </script>
 {% endblock %}
