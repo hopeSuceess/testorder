@@ -38,4 +38,10 @@ urlpatterns = [
     # path('cart/del', cart.delete, name="mobile_cart_del"),
     # path('cart/change', cart.change, name="mobile_cart_change"),  # 购物车更改
 
+
+    # 订单处理
+    path('orders/add', index.addOrders, name="mobile_addorders"), # 加载移动端订单页
+    path('orders/doadd', index.doAddOrders, name="mobile_doaddorders"), #执行移动端下单操作
+
+
 ]
