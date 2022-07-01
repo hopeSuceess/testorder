@@ -83,7 +83,7 @@
         <a href="{% url 'mobile_shop' %}"><i class="icon-selectmore"></i>切换店铺</a>
         <!--a href="member-order.html"><i class="icon-allorders"></i>订单</a-->
         <a href="javascript:void(0)" id="orderCart"><i class="icon-cart"><span>0</span></i>购物车</a>
-        <a href=""><i class="icon-head"></i>我的</a>
+        <a href="{% url 'mobile_member_index' %}"><i class="icon-head"></i>我的</a>
         <a><button onclick="location.href='{% url "mobile_addorders" %}'">去结算</button></a>
     </menu>
 

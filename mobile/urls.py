@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from mobile.views import index, cart
+from mobile.views import index, cart, member
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -42,6 +42,16 @@ urlpatterns = [
     # 订单处理
     path('orders/add', index.addOrders, name="mobile_addorders"), # 加载移动端订单页
     path('orders/doadd', index.doAddOrders, name="mobile_doaddorders"), #执行移动端下单操作
+
+
+
+    #会员中心
+    path('member',member.index, name="mobile_member_index"), #会员中心首页
+    path('member/orders',member.orders, name="mobile_member_orders"), #会员中心订单
+    path('member/detail/<int:uid>', member.detail, name="mobile_member_detail"), # 加载会员中心详情页
+    path('member/logout', member.logout, name="mobile_member_logout"), # 退出
+
+
 
 
 ]
