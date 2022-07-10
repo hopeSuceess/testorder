@@ -31,8 +31,13 @@ urlpatterns = [
 
 
 
+
+
     # 为url路由添加请求前缀web/，凡是带此前缀的url地址必须登录后才能访问
     path("web/", include([
         path('', index.webIndex, name="web_index"),   #前台大堂点餐首页
+
+        path('delweb', index.delweb, name="web_delweb"),  # 退出大堂点餐系统
+
     ]))
 ]
