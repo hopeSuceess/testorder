@@ -46,7 +46,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">
-            <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> <span style="font-weight:bold;">田老师红烧肉</span><span style="font-size:14px;">（朝阳将台路店）</span></a>
+            <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> <span style="font-weight:bold;">{{ request.session.shopinfo.name}}</span><span style="font-size:14px;">{{ request.session.shopinfo.shop }}</span></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -58,7 +58,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="../navbar/">
                     <span class="glyphicon glyphicon-user" aria-hidden="true"> {{request.session.webuser.nickname}}</a></li>
-            <li><a href="">退出</a></li>
+            <li><a href="{% url 'web_delweb' %}">退出</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -80,11 +80,11 @@
                         </tr>
                         {% for product in request.session.cartlist.values %}
                         <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ product.name }}</td>
+                            <td></td>
+                            <td></td>
                             <td class="num"><i onclick="window.location=''" class="btn btn-default btn-xs"> - </i>
-                                <span>{{product.num}}</span><i onclick="window.location=''" class="btn btn-default btn-xs"> + </i></td>
-                            <td class="price">{{ product.price }}</td>
+                                <span></span><i onclick="window.location=''" class="btn btn-default btn-xs"> + </i></td>
+                            <td class="price"></td>
                             <td><a href="" class="btn btn-danger btn-xs" role="button">删除</a></td>
                         </tr>
                         {% endfor %}
@@ -107,27 +107,26 @@
                         <button type="submit" onclick="dosubmit()" class="btn btn-warning" style="width:130px;float:right">结 &nbsp; 算</button>
                         <button type="button" onclick="window.location=''" class="btn btn-danger" style="width: 60px;float: right">清空</button>
                     </div>
-
             </div>
         </div>
         <div class="col-md-8">
             <!--标签页内容-->
             {% for key,category in categorylist %}
-            <h5 style="padding-bottom:9px;border-bottom:1px solid #eee;color:#BB3D00"><span class="glyphicon glyphicon-list" aria-hidden="true"> {{ category.name }}：</h5>
-            <div class="row shoplist">
-                {% for product in category.pids %}
-                <div class="col-sm-6 col-md-3">
-                    <div class="thumbnail">
-                      <img src="{% static 'uploads/product' %}/{{ product.cover_pic }}" alt="...">
-                      <div class="caption">
-                        <h6>{{ product.name }}</h6>
-                        <div class="bn">￥<span class="price">{{ product.price }}</span>元</a>
-                        <a href="" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a></div>
-                      </div>
+                <h5 style="padding-bottom:9px;border-bottom:1px solid #eee;color: #BB3D00"><span class="glyphicon glyphicon-list" aria-hidden="true">{{ category.name }}: </h5>
+                <div class="row shoplist">
+                    {% for product in category.pids %}
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="{% static 'uploads/product' %}/{{ product.cover_pic }}" width="150" alt="...">
+                            <div class="caption">
+                                <h6>{{ product.name }}</h6>
+                                <div class="bn">￥<span class="price">{{ product.price }}</span>元</div>
+                                <a href="" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
-              {% endfor %}
-            </div>
             {% endfor %}
         </div>
     </div>

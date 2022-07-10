@@ -30,6 +30,14 @@ class ShopMiddleware(object):
                 # 重定向到登录页
                 return redirect(reverse("myadmin_login"))
 
+        # 判断大堂点餐是否登录
+        urllist = ['login','dologin','verify']
+        if re.match(r"^/web",path) and (path not in urllist):
+            if "webuser" not in request.session:
+                return redirect(reverse("web_login"))
+
+
+
 
         #判断H5移动会员端是否登录
         #定义移动端不登录也可以直接访问的url列表
