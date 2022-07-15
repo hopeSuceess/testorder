@@ -42,7 +42,7 @@ class ShopMiddleware(object):
         #判断H5移动会员端是否登录
         #定义移动端不登录也可以直接访问的url列表
         urllist1 = ['/mobile/register','/mobile/doregister']
-        # 判断当前请求url地址是否是以/mobile开头，并且不在urllist中，才做是否登陆判断
+        # 判断当前请求url地址是否是以/mobile开头，并且不在urllist中，才做是否登录判断
         if re.match(r'^/mobile', path) and (path not in urllist1):
             # 判断是否登录(在于session中没有mobileuser)
             if 'mobileuser' not in request.session:
@@ -51,3 +51,4 @@ class ShopMiddleware(object):
 
         response = self.get_response(request)
         return response
+

@@ -35,39 +35,55 @@ def login(request):
 
 def dologin(request):
     ''' 执行登录操作 '''
+    try:
+        #执行是否选择店铺判断
+        if request.POST['shop_id'] == '0':
+            return redirect(reverse('web_login')+"?typeinfo=1")
 
-    # 根据登录账号获取登录者信息
-    user = User.objects.get(username=request.POST['username'])
-    # 判断当前用户是否正常或管理员
-    if user.status == 6 or user.status == 1:
-        # 判断登录密码是否相同
-        import hashlib
-        md5 = hashlib.md5()
-        s = request.POST['pass'] + str(user.password_salt) # 从表单重获取密码并添加干扰值
-        md5.update(s.encode('utf-8')) # 将要产生md5的字串放进去
-        if user.password_hash == md5.hexdigest():  # 获取md5值
-            print("登录成功！")
-            # 将当前登录成功的用户信息以webuser为key写入到session中
-            request.session['webuser'] = user.toDict()
+        # 执行验证码的校验
+        if request.POST['code'] != request.session['verifycode']:
+            return redirect(reverse('web_login')+"?typeinfo=2")
 
-             # 获取当前店铺信息
-            shopob = Shop.objects.get(id=request.POST['shop_id'])
-            request.session['shopinfo'] = shopob.toDict()
-             # 获取当前店铺中所有菜品类别和菜品信息
-            clist = Category.objects.filter(shop_id = shopob.id, status=1)
-            categorylist = dict() # 菜品类别(内含有菜品信息)
-            productlist = dict() # 菜品信息
-            for vo in clist:
-                c = {'id': vo.id, 'name': vo.name, 'pids':[]}
-                plist = Product.objects.filter(shop_id=shopob.id,category_id=vo.id,status=1)
-                for p in plist:
-                    c['pids'].append(p.toDict())
-                    productlist[p.id] = p.toDict()
-                categorylist[vo.id] = c
+        # 根据登录账号获取登录者信息
+        user = User.objects.get(username=request.POST['username'])
+            # 判断当前用户是否正常或管理员
+        if user.status == 6 or user.status == 1:
+            # 判断登录密码是否相同
+            import hashlib
+            md5 = hashlib.md5()
+            s = request.POST['pass'] + str(user.password_salt) # 从表单重获取密码并添加干扰值
+            md5.update(s.encode('utf-8')) # 将要产生md5的字串放进去
+            if user.password_hash == md5.hexdigest():  # 获取md5值
+                print("登录成功！")
+                # 将当前登录成功的用户信息以webuser为key写入到session中
+                request.session['webuser'] = user.toDict()
+
+                # 获取当前店铺信息
+                shopob = Shop.objects.get(id=request.POST['shop_id'])
+                request.session['shopinfo'] = shopob.toDict()
+                # 获取当前店铺中所有菜品类别和菜品信息
+                clist = Category.objects.filter(shop_id = shopob.id, status=1)
+                categorylist = dict() # 菜品类别(内含有菜品信息)
+                productlist = dict() # 菜品信息
+                for vo in clist:
+                    c = {'id': vo.id, 'name': vo.name, 'pids':[]}
+                    plist = Product.objects.filter(shop_id=shopob.id,category_id=vo.id,status=1)
+                    for p in plist:
+                        c['pids'].append(p.toDict())
+                        productlist[p.id] = p.toDict()
+                    categorylist[vo.id] = c
                 request.session['categorylist'] = categorylist #菜品类别列表
                 request.session['productlist'] = productlist #菜品列表
                 #重定向到前台大堂点餐首页
                 return redirect(reverse("web_index"))
+            else:
+                return redirect(reverse('web_login')+"?typeinfo=5")
+        else:
+            return redirect(reverse('web_login')+"?typeinfo=4")
+    except Exception as err:
+        print (err)
+        return redirect(reverse('web_login')+"?typeinfo=3")
+
 
 
 def delweb(request):
