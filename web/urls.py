@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from web.views import index
+from web.views import index, cart
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -36,6 +36,11 @@ urlpatterns = [
     # 为url路由添加请求前缀web/，凡是带此前缀的url地址必须登录后才能访问
     path("web/", include([
         path('', index.webIndex, name="web_index"),   #前台大堂点餐首页
+        #购物车信息管理路由
+        path('cart/add/<str:pid>', cart.add,name="web_cart_add"), #购物车新增
+        path('cart/change', cart.change, name="web_cart_change"),  # 购物车更改
+        path('cart/clear', cart.clear, name="web_cart_clear"), # 购物车清空
+        path('cart/delete/<str:pid>', cart.delete, name="web_cart_delete"), # 购物车餐品删除
 
         path('delweb', index.delweb, name="web_delweb"),  # 退出大堂点餐系统
 

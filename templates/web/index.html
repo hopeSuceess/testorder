@@ -80,12 +80,12 @@
                         </tr>
                         {% for product in request.session.cartlist.values %}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td class="num"><i onclick="window.location=''" class="btn btn-default btn-xs"> - </i>
-                                <span></span><i onclick="window.location=''" class="btn btn-default btn-xs"> + </i></td>
-                            <td class="price"></td>
-                            <td><a href="" class="btn btn-danger btn-xs" role="button">删除</a></td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{product.name}}</td>
+                            <td class="num"><i onclick="window.location='{% url 'web_cart_change' %}?pid={{ product.id }}&num={{ product.num|add:-1 }}'" class="btn btn-default btn-xs"> - </i>
+                                <span>{{ product.num }}</span><i onclick="window.location='{% url 'web_cart_change' %}?pid={{ product.id }}&num={{ product.num|add:1 }}'" class="btn btn-default btn-xs"> + </i></td>
+                            <td class="price">{{ product.price }}</td>
+                            <td><a href="{% url 'web_cart_delete' product.id %}" class="btn btn-danger btn-xs" role="button">删除</a></td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -105,7 +105,7 @@
                     <div class="panel-footer" style="height:50px">
                         <div style="width:120px;float:left;margin:5px 0px;">合计：￥<span style="color:red;font-weight:bold;">{{ request.session.total_money }}</span> 元</div>
                         <button type="submit" onclick="dosubmit()" class="btn btn-warning" style="width:130px;float:right">结 &nbsp; 算</button>
-                        <button type="button" onclick="window.location=''" class="btn btn-danger" style="width: 60px;float: right">清空</button>
+                        <button type="button" onclick="window.location='{% url 'web_cart_clear' %}'" class="btn btn-danger" style="width: 60px;float: right">清空</button>
                     </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
                             <div class="caption">
                                 <h6>{{ product.name }}</h6>
                                 <div class="bn">￥<span class="price">{{ product.price }}</span>元</div>
-                                <a href="" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
+                                <a href="{% url 'web_cart_add' product.id %}" class="btn btn-warning btn-xs pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> 购买</a>
                             </div>
                         </div>
                     </div>
