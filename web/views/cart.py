@@ -30,7 +30,7 @@ def change(request):
     #尝试从session中获取名字为cartlist的购物车信息，若没有返回{}
     cartlist = request.session.get('cartlist', {})
     pid = request.GET.get("pid",0) # 获取要修改的菜品id
-    m = int(request.GET.get('num',1)) #要修改的梳理
+    m = int(request.GET.get('num',1)) #要修改的数量
     if m < 1:
         m = 1
     cartlist[pid]['num'] = m #修改购物车中的数量
