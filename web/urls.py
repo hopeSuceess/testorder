@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from web.views import index, cart
+from web.views import index, cart, orders
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -43,6 +43,8 @@ urlpatterns = [
         path('cart/delete/<str:pid>', cart.delete, name="web_cart_delete"), # 购物车餐品删除
 
         path('delweb', index.delweb, name="web_delweb"),  # 退出大堂点餐系统
+
+        # path('orders/insert', orders.insert,name='web_orders_insert'), #执行订单添加操作
 
     ]))
 ]

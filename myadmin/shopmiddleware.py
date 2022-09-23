@@ -22,13 +22,13 @@ class ShopMiddleware(object):
 
         # 判断管理后台是否登录
         # 定义后台不登录也可以直接访问的url列表
-        urllist = ['/myadmin/login','/myadmin/logout','/myadmin/dologin', '/myadmin/verify']
-        # 判断当前请求url地址是否是以/myadmin开头，并且不在urllist中，才做是否登陆判断
-        if re.match(r"^/myadmin",path) and (path not in urllist):
-            # 判断是否登录(在于session中没有adminuser)
-            if "adminuser" not in request.session:
-                # 重定向到登录页
-                return redirect(reverse("myadmin_login"))
+        # urllist = ['/myadmin/login','/myadmin/logout','/myadmin/dologin', '/myadmin/verify']
+        # # 判断当前请求url地址是否是以/myadmin开头，并且不在urllist中，才做是否登陆判断
+        # if re.match(r"^/myadmin",path) and (path not in urllist):
+        #     # 判断是否登录(在于session中没有adminuser)
+        #     if "adminuser" not in request.session:
+        #         # 重定向到登录页
+        #         return redirect(reverse("myadmin_login"))
 
         # 判断大堂点餐是否登录
         urllist = ['login','dologin','verify']
