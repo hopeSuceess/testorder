@@ -152,13 +152,13 @@
             //执行ajax提交订单
             $.ajax({
                 type:"get",
-                url:"",
+                url:"{% url "web_orders_insert" %}",
                 dataType:"text",
                 data:{ptype:ptype,bank:bank},
                 success:function(res){
                     if(res == "Y"){
                         alert("订单添加成功！");
-                        window.location.href = "";
+                        window.location.href = "{% url 'web_index' %}";
                     }else{
                         alert("订单处理失败！");
                     }
