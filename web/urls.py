@@ -44,7 +44,7 @@ urlpatterns = [
 
         path('delweb', index.delweb, name="web_delweb"),  # 退出大堂点餐系统
 
-        # path('orders/insert', orders.insert,name='web_orders_insert'), #执行订单添加操作
+        path('orders/insert', orders.insert,name='web_orders_insert'), #执行订单添加操作
 
     ]))
 ]

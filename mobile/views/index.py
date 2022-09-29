@@ -100,6 +100,9 @@ def addOrders(request):
     return render(request,"mobile/addOrders.html")
 
 
+
+
+
 def doAddOrders(request):
     '''执行移动端下单操作'''
     try:
